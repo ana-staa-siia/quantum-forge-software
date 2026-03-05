@@ -91,3 +91,39 @@
 
 ## 2. Подготовка базы знаний
 База знаний подготовлена на основе вселенной о Гарри Поттере, [словарь замен](/terms.json) 
+
+## 3. Создание векторного индекса базы знаний
+
+### Параметры индексации
+- **Модель эмбеддингов:** all-MiniLM-L6-v2
+- **Размер эмбеддинга:** 384 измерения
+- **Источник данных:** [knowledge_base](knowledge_base)
+- **Количество чанков:** 131
+- **Время индексации:** 9.62 секунд
+- **Векторная БД:** ChromaDB
+
+### Параметры разбиения текста
+- Размер чанка: 500 символов
+- Перекрытие: 50 символов
+
+### Пример запроса
+**Запрос:** What is the name for snow-white pigeon?
+
+**Найденные чанки:**  
+[Файл-Источник](knowledge_base/Harry_Potter.txt)  
+*Текст*: uuid72 uuid122 took uuid204 from the uuid247 family the next day to uuid255. This is where uuid204 withdrew some of his money
+from uuid214, where uuid122 bought uuid204's snow-white pigeon, uuid192. W...
+
+**Запрос:** What is a uuid109?
+
+**Найденные чанки:**  
+[Файл-Источник](knowledge_base/Order_of_the_Phoenix.txt)  
+*Текст*: The uuid109 was a secret society founded by uuid330 uuid328 to oppose uuid149 uuid21 and his uuid271s.
+The original Order was created in the 1970s. It was constructed after uuid21 returned to America ...
+
+[Скрипт для тестов](search_test.py)
+
+## 4. Реализация RAG-бота с техниками промптинга
+
+## 5. Запуск и демонстрация работы бота
+
