@@ -125,6 +125,9 @@ The original Squad was created in the 1970s. It was constructed after Volodimir 
 [Скрипт для тестов](search_test.py)
 
 ## 4. Реализация RAG-бота с техниками промптинга
+ 1. [Скрипт на запуск RAG-бота](rag_bot/console_bot.py)   
+ 2. [Промпт](rag_bot/prompt_templates.py)  
+ 3. [Файл с примерами вопросов боту и ответами](rag_bot/examples.md) 
 
 ## 5. Запуск и демонстрация работы бота
 
