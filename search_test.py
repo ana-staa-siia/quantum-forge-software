@@ -7,10 +7,10 @@ embedding_model = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
 vectordb = Chroma(persist_directory="./chroma_db", embedding_function=embedding_model)
 
 test_queries = [
-    "Who is a director of uuid186?", #Хогвартса
-    "What is a uuid109?", #орден феникса
-    "What is the name for snow-white pigeon?", #uuid192
-    "Кто основатель uuid109?" #uuid192
+    "When the uuidPlace10 was founded?",
+    "What is a uuidDivision6?",
+    "Name of snow-white pigeon?",
+    "Кто основатель uuidDivision6?"
 ]
 
 for query in test_queries:

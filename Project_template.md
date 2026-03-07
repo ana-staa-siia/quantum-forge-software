@@ -98,8 +98,8 @@
 - **Модель эмбеддингов:** all-MiniLM-L6-v2
 - **Размер эмбеддинга:** 384 измерения
 - **Источник данных:** [knowledge_base](knowledge_base)
-- **Количество чанков:** 131
-- **Время индексации:** 9.62 секунд
+- **Количество чанков:** 140
+- **Время индексации:** 5.14 секунд
 - **Векторная БД:** ChromaDB
 
 ### Параметры разбиения текста
@@ -107,19 +107,19 @@
 - Перекрытие: 50 символов
 
 ### Пример запроса
-**Запрос:** What is the name for snow-white pigeon?
+**Запрос:**  When the uuidPlace10 was founded?
 
 **Найденные чанки:**  
-[Файл-Источник](knowledge_base/Harry_Potter.txt)  
-*Текст*: uuid72 uuid122 took uuid204 from the uuid247 family the next day to uuid255. This is where uuid204 withdrew some of his money
-from uuid214, where uuid122 bought uuid204's snow-white pigeon, uuid192. W...
+[Файл-Источник](knowledge_base/uuidPlace10.txt)  
+*Текст*: uuidPlace10 School of uuid29, often shortened to uuidPlace10, was the American uuid2 school
+located in the Scottish Highlands. Founded in the 10th century, uuidPlace10 was regarded as one of the fines...
 
-**Запрос:** What is a uuid109?
+**Запрос:** What is a uuidDivision6?
 
 **Найденные чанки:**  
-[Файл-Источник](knowledge_base/Order_of_the_Phoenix.txt)  
-*Текст*: The uuid109 was a secret society founded by uuid330 uuid328 to oppose uuid149 uuid21 and his uuid271s.
-The original Order was created in the 1970s. It was constructed after uuid21 returned to America ...
+[Файл-Источник](knowledge_base/uuidDivision6.txt)  
+*Текст*:  The uuidDivision6 was a secret society founded by uuidName11 uuidName10 to oppose Sir uuidName9 and his uuidProfession7s.
+The original Order was created in the 1970s. It was constructed after uuidName...
 
 [Скрипт для тестов](search_test.py)
 
