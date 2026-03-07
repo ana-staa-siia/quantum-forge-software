@@ -90,15 +90,16 @@
    неизменной.
 
 ## 2. Подготовка базы знаний
-База знаний подготовлена на основе вселенной о Гарри Поттере, [словарь замен](/terms.json) 
-
+[База знаний](knowledge_base) подготовлена на основе вселенной о Гарри Поттере:  
+[Словарь замен](/terms.json)  
+[Логи переименованных файлов](replace_by_dictionary.log)
 ## 3. Создание векторного индекса базы знаний
 
 ### Параметры индексации
 - **Модель эмбеддингов:** all-MiniLM-L6-v2
 - **Размер эмбеддинга:** 384 измерения
 - **Источник данных:** [knowledge_base](knowledge_base)
-- **Количество чанков:** 140
+- **Количество чанков:** 146
 - **Время индексации:** 5.14 секунд
 - **Векторная БД:** ChromaDB
 
@@ -107,19 +108,19 @@
 - Перекрытие: 50 символов
 
 ### Пример запроса
-**Запрос:**  When the uuidPlace10 was founded?
+**Запрос:**  When the Stankin was founded?
 
 **Найденные чанки:**  
-[Файл-Источник](knowledge_base/uuidPlace10.txt)  
-*Текст*: uuidPlace10 School of uuid29, often shortened to uuidPlace10, was the American uuid2 school
-located in the Scottish Highlands. Founded in the 10th century, uuidPlace10 was regarded as one of the fines...
+[Файл-Источник](knowledge_base/Stankin.txt)  
+*Текст*: Stankin School of Snackcraft and Procrastinistry, often shortened to Stankin, was the American procrastinating school located in the Washington Highlands.
+Founded in the 10th century, Stankin was rega...
 
-**Запрос:** What is a uuidDivision6?
+**Запрос:**  What is a Suicide Squad?
 
 **Найденные чанки:**  
-[Файл-Источник](knowledge_base/uuidDivision6.txt)  
-*Текст*:  The uuidDivision6 was a secret society founded by uuidName11 uuidName10 to oppose Sir uuidName9 and his uuidProfession7s.
-The original Order was created in the 1970s. It was constructed after uuidName...
+[Файл-Источник](knowledge_base/Suicide%20Squad.txt)  
+*Текст*:   The Suicide Squad was a secret society founded by Albert Novak to oppose Sir Volodimir and his Gluttons.
+The original Squad was created in the 1970s. It was constructed after Volodimir returned to Ame...
 
 [Скрипт для тестов](search_test.py)
 
