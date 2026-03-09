@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 from init_bot import RAGBot
 import sys
 
@@ -34,7 +32,6 @@ def main():
         print("3. Индекс создан (папка ./chroma_db существует)")
         sys.exit(1)
 
-    show_sources = False
     print_help()
 
     while True:
@@ -55,22 +52,9 @@ def main():
             elif user_input.lower() == '/clear':
                 clear_screen()
                 continue
-            elif user_input.lower() == '/sources':
-                show_sources = not show_sources
-                print(f"Показ источников: {'включён' if show_sources else 'выключен'}")
-                continue
 
-            # Получаем ответ от бота
-            if show_sources:
-                answer, sources = bot.answer_with_sources(user_input)
-                print(f"\n🤖 Ответ: {answer}")
-                if sources:
-                    print("\n📚 Источники:")
-                    for source in sources:
-                        print(f"  • {source}")
-            else:
-                answer = bot.answer(user_input)
-                print(f"\n🤖 Ответ: {answer}")
+            answer = bot.answer(user_input)
+            print(f"\n🤖 Ответ: {answer}")
 
         except KeyboardInterrupt:
             print("\nДо свидания!")

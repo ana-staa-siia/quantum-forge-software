@@ -35,8 +35,7 @@ class RAGBot:
         examples_text = ""
         for ex in self.few_shot_examples[:2]:  # берём 1-2 примера
             examples_text += f"Вопрос: {ex['question']}\nОтвет: {ex['answer']}\n\n"
-        
-        # Полный промпт с CoT и few-shot
+
         prompt = SYSTEM_PROMPT.format(
             examples=examples_text,
             question=question,
@@ -46,47 +45,45 @@ class RAGBot:
         return prompt
     
     def answer(self, question, k=4):
-        """
-        Основной метод: принимает вопрос, возвращает ответ
-        """
         print(f"\n--- Обработка вопроса: {question} ---")
-        
-        # 1. Поиск релевантных чанков
+
+        # Поиск релевантных чанков
         print("Поиск в векторной базе...")
-        context_chunks = self.vectordb.similarity_search(question, k=k)
-        
-        # Проверяем, есть ли найденные чанки
-        if not context_chunks:
-            return "Я не знаю. В базе знаний нет информации по вашему вопросу."
-        
-        print(f"Найдено чанков: {len(context_chunks)}")
-        
-        # 2. Формирование промпта
-        prompt = self._build_prompt(question, context_chunks)
-        
-        # 3. Генерация ответа
-        print("Генерация ответа LLM...")
+        context_chunks = self.vectordb.similarity_search(question, k=k*2)
+
+        # Фильтруем опасные чанки
+        safe_chunks = self._filter_malicious_chunks(context_chunks)
+
+        if not safe_chunks:
+            return "Я не знаю. Информация не найдена или была отфильтрована по соображениям безопасности."
+
+        print(f"Найдено чанков: {len(safe_chunks)} (отфильтровано {len(context_chunks) - len(safe_chunks)})")
+
+        prompt = self._build_prompt(question, safe_chunks)
         answer = self.llm.invoke(prompt)
-        
+
         return answer
-    
-    def answer_with_sources(self, question, k=4):
-        """
-        Возвращает ответ вместе с источниками (для отладки)
-        """
-        context_chunks = self.vectordb.similarity_search(question, k=k)
-        
-        if not context_chunks:
-            return "Я не знаю.", []
-        
-        prompt = self._build_prompt(question, context_chunks)
-        answer = self.llm.invoke(prompt)
-        
-        # Собираем источники
-        sources = []
-        for chunk in context_chunks:
-            source = chunk.metadata.get('source', 'Неизвестный источник')
-            text_preview = chunk.page_content[:100] + "..."
-            sources.append(f"{source}: {text_preview}")
-        
-        return answer, sources
+
+    def _filter_malicious_chunks(self, chunks):
+        filtered_chunks = []
+
+        # Список опасных паттернов
+        dangerous_patterns = [
+            "ignore all instructions",
+            "ignore previous",
+            "output:",
+            "суперпароль",
+            "swordfish",
+            "root:"
+        ]
+
+        for chunk in chunks:
+            content = chunk.page_content.lower()
+            is_dangerous = any(pattern in content for pattern in dangerous_patterns)
+
+            if not is_dangerous:
+                filtered_chunks.append(chunk)
+            else:
+                print(f"⚠️ Отфильтрован потенциально опасный чанк из {chunk.metadata.get('source', 'неизвестно')}")
+
+        return filtered_chunks
